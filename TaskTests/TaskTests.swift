@@ -2,8 +2,8 @@
 //  TaskTests.swift
 //  TaskTests
 //
-//  Created by Amaal on 12/16/18.
-//  Copyright © 2018 Amaal. All rights reserved.
+//  Created by Ahmed Hamdy on 12/26/18.
+//  Copyright © 2018 Ahmed Hamdy. All rights reserved.
 //
 
 import XCTest
