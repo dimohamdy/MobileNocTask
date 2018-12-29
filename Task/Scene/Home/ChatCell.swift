@@ -15,7 +15,7 @@ class ChatCell: UITableViewCell,ReusableCellView {
     @IBOutlet weak var deviceNameLabel: UILabel!
     @IBOutlet weak var ipLabel: UILabel!
     @IBOutlet weak var subnetLabel: UILabel!
-    @IBOutlet weak var statusImageView: UIImageView!
+    @IBOutlet weak var statusView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,9 +25,10 @@ class ChatCell: UITableViewCell,ReusableCellView {
         deviceNameLabel.text = content.model?.name
         ipLabel.text = content.ipAddress
         subnetLabel.text = content.ipSubnetMask
+        statusView.backgroundColor = .red
 
-        if let status  = content.status?.id {
-            statusImageView.backgroundColor = State(rawValue: status)?.color
+        if let status = content.status?.id,status <= 4 {
+            statusView.backgroundColor = State(rawValue: status)?.color
         }
     }
     override func setSelected(_ selected: Bool, animated: Bool) {

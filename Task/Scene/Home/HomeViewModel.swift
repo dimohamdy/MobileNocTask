@@ -21,14 +21,13 @@ class HomeViewModel:BaseViewModel {
     fileprivate var curretPageNumber = 0
     fileprivate var totalPages = 0
 
-//    fileprivate var canLoadMore = true
-    let contents: BehaviorRelay<[Content]> = BehaviorRelay<[Content]>(value: [])
+    private let contents: BehaviorRelay<[Content]> = BehaviorRelay<[Content]>(value: [])
     let pageObject: BehaviorRelay<Page?> = BehaviorRelay<Page?>(value: nil)
 
     
-    init(serverManager:ServerManager = ServerManager()) {
+    init(networkManager:NetworkManager = NetworkManager()) {
         super.init()
-        self.serverManager = serverManager
+        self.serverManager = ServerManager(networkManager: networkManager)
         reloadData()
     }
     func loadMoreData(_ index: IndexPath) {
@@ -50,11 +49,10 @@ class HomeViewModel:BaseViewModel {
                 self.loading.accept(false)
                 switch result {
                 case .succeed(let page):
-                    guard let page = page,let lastItem = page.last,let content = page.content,let totalPages = page.totalPages else{
+                    guard let page = page,let content = page.content,let totalPages = page.totalPages else{
                         return
                     }
                     self.pageObject.accept(page)
-//                    self.canLoadMore = lastItem
                     self.totalPages = totalPages
                     var arrayOfOldContent = self.contents.value
                      arrayOfOldContent.append(contentsOf: content)
